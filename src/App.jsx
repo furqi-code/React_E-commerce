@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Header } from "./components/header";
 import { products } from "./products";
 import { ShowProducts } from "./components/ShowProducts";
+import { ShowBag } from "./components/showBag";
 
 export function App() {
   const [flipkart, setFlipkart] = useState({
@@ -9,7 +10,7 @@ export function App() {
     wishlist: [],
     shoWishlist: false,
   });
-
+  let content;
   console.log("wishlist Array \n", flipkart.wishlist);
 
   const collectItems = (id) => {
@@ -29,11 +30,45 @@ export function App() {
     }
   };
 
+  const showBagItems = () => {
+    setFlipkart((prevState) => {
+      return {
+        ...prevState,
+        shoWishlist: true,
+      };
+    });
+  };
+
+  const hideBagItems = () => {
+    setFlipkart((prevState) => {
+      return {
+        ...prevState,
+        shoWishlist: false,
+      };
+    });
+  };
+
+  
+
+  if (flipkart.shoWishlist)
+    content = (
+      <ShowBag
+        wishlist={flipkart.wishlist}
+        hideBagItems={hideBagItems}
+      />
+    );
+  else
+    content = (
+      <ShowProducts
+        productList={flipkart.productList}
+        addToCart={collectItems}
+      />
+    );
 
   return (
     <>
-      <Header wishlist={flipkart.wishlist} />
-      <ShowProducts productList={flipkart.productList} addToCart={collectItems}></ShowProducts>
+      <Header wishlist={flipkart.wishlist} showBagItems={showBagItems} />
+      {content}
     </>
   );
 }

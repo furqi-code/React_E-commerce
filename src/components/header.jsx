@@ -1,4 +1,4 @@
-export function Header({ wishlist }) {
+export function Header({ showBagItems, wishlist }) {
   return (
     <div
       className="p-2 mb-4 flex justify-around items-center"
@@ -13,7 +13,7 @@ export function Header({ wishlist }) {
         />
       </div>
       <div>
-        <button className="myBtn">
+        <button className="myBtn" onClick={showBagItems}>
           <img
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROdEYJWy438DWyVWOnvbw1Aydy8-VNEbQ_B592E3Pste2GYBetOTs142mx9-QOEBZ3dQc&usqp=CAU"
             alt="cart"
