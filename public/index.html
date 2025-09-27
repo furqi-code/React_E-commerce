@@ -143,6 +143,40 @@ then set the desired styles for .card-img. */
       .a-scroller-none {
         overflow: hidden;
       }
+      .quantity {
+        height: 30px;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        margin: auto;
+        background-color: #ffffff;
+        border: 1px solid #e5e5e5;
+        border-radius: 7px;
+        filter: drop-shadow(0px 1px 0px #efefef)
+          drop-shadow(0px 1px 0.5px rgba(239, 239, 239, 0.5));
+      }
+
+      .quantity label {
+        width: 20px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-bottom: 2px;
+        font-size: 15px;
+        font-weight: 700;
+        color: #47484b;
+      }
+      .quantity button {
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 0;
+        outline: none;
+        background-color: transparent;
+        padding-bottom: 2px;
+      }
       .myBtn:hover {
         cursor: grab;
       }

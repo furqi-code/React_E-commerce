@@ -4,9 +4,9 @@ import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
 
 export function CartItem({ removefromCart, ...product }) {
-  let bill = product.MRP - (product.discount / 100) * product.MRP;
+  let [quantity, setQuantity] = useState(1);
+  let bill = quantity * (product.MRP - (product.discount / 100) * product.MRP);
   console.log(`Stock of ${product.name}: `, product.stock);
-  // console.log(`Quantity of ${product.name}: `, quantity);
   return (
     <div className="flex justify-between gap-14 py-8">
       <div style={{ backgroundColor: "silver", border: "2px solid black" }}>
@@ -14,7 +14,68 @@ export function CartItem({ removefromCart, ...product }) {
       </div>
       <div>
         <p className="text-lg">{product.description}</p>
-
+        <div className="flex justify-between items center">
+          <p className="mt-1">Quantity: </p>
+          <div class="quantity" style={{ width: "90px" }}>
+            <button
+              className="myBtn"
+              onClick={() => {
+                if (quantity == 1) {
+                  removefromCart(product.id);
+                } else {
+                  setQuantity(--quantity);
+                }
+              }}
+            >
+              <svg
+                fill="none"
+                viewBox="0 0 24 24"
+                height="14"
+                width="14"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linejoin="round"
+                  stroke-linecap="round"
+                  stroke-width="2.5"
+                  stroke="#47484b"
+                  d="M20 12L4 12"
+                ></path>
+              </svg>
+            </button>
+            <label>{quantity}</label>
+            <button
+              className="myBtn"
+              onClick={() => {
+                if (quantity < product.stock) {
+                  setQuantity(++quantity);
+                } else {
+                  alert(
+                    "We are out of Stock for " +
+                      `${product.name}`.toUpperCase() +
+                      " item"
+                  );
+                }
+              }}
+            >
+              <svg
+                fill="none"
+                viewBox="0 0 24 24"
+                height="14"
+                width="14"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linejoin="round"
+                  stroke-linecap="round"
+                  stroke-width="2.5"
+                  stroke="#47484b"
+                  d="M12 4V20M20 12H4"
+                ></path>
+              </svg>
+            </button>
+          </div>
+        </div>
         <Stack className="mt-1">
           <Rating
             name="half-rating-read"
