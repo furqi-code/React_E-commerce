@@ -1,4 +1,12 @@
-export function Header({ showBagItems, wishlist }) {
+import { useContext } from "react";
+import { ProductContext } from "../store/productContext";
+
+export function Header() {
+  const { showBagItems, wishlist } = useContext(ProductContext);
+  let totalCartItem = 0;
+  wishlist.forEach((item) => {
+    totalCartItem += item.quantity;
+  });
   return (
     <div
       className="p-2 mb-4 flex justify-around items-center"
@@ -20,7 +28,7 @@ export function Header({ showBagItems, wishlist }) {
             className="h-12"
           />
           <p className="text-white">
-            {wishlist.length === 0 ? "Cart" : wishlist.length}
+            {wishlist.length === 0 ? "Cart" : totalCartItem}
           </p>
         </button>
       </div>

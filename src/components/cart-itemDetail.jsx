@@ -1,14 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import {ProductContext} from "../store/productContext"
 import * as React from "react";
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
 
-export function CartItem({
-  removefromCart,
-  increaseQnty,
-  decreaseQnty,
-  ...product
-}) {
+export function CartItem({ ...product }) {
+  const { removefromCart, increaseQnty, decreaseQnty } = useContext(ProductContext);
   // let [quantity, setQuantity] = useState(1);
   let bill = product.quantity * (product.MRP - (product.discount / 100) * product.MRP);
   console.log(`Stock of ${product.name}: `, product.stock);
@@ -20,7 +17,7 @@ export function CartItem({
       <div>
         <p className="text-lg">{product.description}</p>
         <div className="flex justify-between items center">
-          <p className="mt-1">Quantity: </p>
+          <p className="mt-1">Quantity : </p>
           <div class="quantity" style={{ width: "90px" }}>
             <button
               className="myBtn"
@@ -93,19 +90,19 @@ export function CartItem({
           />
         </Stack>
         <p className="mt-1">
-          Name: <span className="ms-1">{product.name}</span>
+          Name : <span className="ms-1">{product.name}</span>
         </p>
-        <s className="mt-1">MRP: ${product.MRP.toFixed(3)}</s>
+        <s className="mt-1">MRP : ${product.MRP.toFixed(3)}</s>
         <p className="mt-1">
-          Discount:
+          Discount :
           <span className="text-red-400 text-lg ms-2">
             -{product.discount}%
           </span>
         </p>
         <div className="flex justify-between items center">
           <p>
-            Bill:
-            <span className="text-green-400 text-xl ms-2">
+            Bill :
+            <span className="text-green-500 text-xl ms-2">
               ${bill.toFixed(3)}
             </span>
           </p>
