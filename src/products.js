@@ -6,7 +6,7 @@ export const products = [
     category: "Electronics",
     MRP: 1200.0,
     discount: Math.round(Math.random() * 77),
-    stock: Math.round(Math.random() * 10),
+    stock: Math.round(Math.random() * 14),
     quantity: 1, 
     img: "https://static0.makeuseofimages.com/wordpress/wp-content/uploads/2017/08/revive-windows-xp-windows10.jpg"
   },
@@ -17,7 +17,7 @@ export const products = [
     category: "Electronics",
     MRP: 47.85,
     discount: Math.round(Math.random() * 77),
-    stock: Math.round(Math.random() * 10),
+    stock: Math.round(Math.random() * 14),
     quantity: 1, 
     img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAMbCOcASgoyO_A48_azDuXxJlwEWq8vLFNA&s"
   },
@@ -28,7 +28,7 @@ export const products = [
     category: "Home Goods",
     MRP: 22.75,
     discount: Math.round(Math.random() * 77),
-    stock: Math.round(Math.random() * 10),
+    stock: Math.round(Math.random() * 14),
     quantity: 1, 
     img: "https://www.ikea.com/in/en/images/products/roedflik-desk-lamp-light-beige__1327054_pe944348_s5.jpg"
   },
@@ -39,7 +39,7 @@ export const products = [
     category: "Kitchen appliances",
     MRP: 12.99,
     discount: Math.round(Math.random() * 77),
-    stock: Math.round(Math.random() * 10),
+    stock: Math.round(Math.random() * 14),
     quantity: 1, 
     img: "https://sc04.alicdn.com/kf/H6a6a2ef146a24a7aaa34e2c698a7ed23m.jpg"
   },
@@ -50,7 +50,7 @@ export const products = [
     category: "Electronics",
     MRP: 899.00,
     discount: Math.round(Math.random() * 77),
-    stock: Math.round(Math.random() * 10),
+    stock: Math.round(Math.random() * 14),
     quantity: 1, 
     img: "https://www.busiboutique.com/medias/boutique/425969/61cfcf77-fee2-4bf6-9663-c9337e1d9d66.jpg"
   },
@@ -61,7 +61,7 @@ export const products = [
     category: "Car",
     MRP: 79245.00,
     discount: Math.round(Math.random() * 77),
-    stock: Math.round(Math.random() * 10),
+    stock: Math.round(Math.random() * 14),
     quantity: 1, 
     img: "https://cdn.motor1.com/images/mgl/vxoJ0Y/s3/2023-audi-r8-v10-gt-rwd.jpg"
   },
@@ -72,7 +72,7 @@ export const products = [
     category: "Garden",
     MRP: 399,
     discount: Math.round(Math.random() * 77),
-    stock: Math.round(Math.random() * 10),
+    stock: Math.round(Math.random() * 14),
     quantity: 1, 
     img: "https://m.media-amazon.com/images/I/61t9NUZRGRL._SX679_.jpg"
   },  
