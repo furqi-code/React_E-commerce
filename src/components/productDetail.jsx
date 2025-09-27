@@ -3,9 +3,14 @@ import * as React from "react";
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
 
-export function CartItem({ removefromCart, ...product }) {
-  let [quantity, setQuantity] = useState(1);
-  let bill = quantity * (product.MRP - (product.discount / 100) * product.MRP);
+export function CartItem({
+  removefromCart,
+  increaseQnty,
+  decreaseQnty,
+  ...product
+}) {
+  // let [quantity, setQuantity] = useState(1);
+  let bill = product.quantity * (product.MRP - (product.discount / 100) * product.MRP);
   console.log(`Stock of ${product.name}: `, product.stock);
   return (
     <div className="flex justify-between gap-14 py-8">
@@ -20,11 +25,12 @@ export function CartItem({ removefromCart, ...product }) {
             <button
               className="myBtn"
               onClick={() => {
-                if (quantity == 1) {
-                  removefromCart(product.id);
-                } else {
-                  setQuantity(--quantity);
-                }
+                decreaseQnty(product.id);
+                // if (quantity == 1) {
+                //   removefromCart(product.id);
+                // } else {
+                //   setQuantity(--quantity);
+                // }
               }}
             >
               <svg
@@ -43,19 +49,20 @@ export function CartItem({ removefromCart, ...product }) {
                 ></path>
               </svg>
             </button>
-            <label>{quantity}</label>
+            <label>{product.quantity}</label>
             <button
               className="myBtn"
               onClick={() => {
-                if (quantity < product.stock) {
-                  setQuantity(++quantity);
-                } else {
-                  alert(
-                    "We are out of Stock for " +
-                      `${product.name}`.toUpperCase() +
-                      " item"
-                  );
-                }
+                increaseQnty(product.id);
+                // if (quantity < product.stock) {
+                //   setQuantity(++quantity);
+                // } else {
+                //   alert(
+                //     "We are out of Stock for " +
+                //       `${product.name}`.toUpperCase() +
+                //       " item"
+                //   );
+                // }
               }}
             >
               <svg
