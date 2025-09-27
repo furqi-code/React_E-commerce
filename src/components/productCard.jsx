@@ -1,5 +1,9 @@
-export function Card({ id, name, description, MRP, img, addToCart }) {
-  
+import { useContext } from "react";
+import { ProductContext } from "../store/productContext";
+
+export function Card({ id, name, description, MRP, img }) {
+  const { addToCart } = useContext(ProductContext);
+
   return (
     <div class="card">
       <div class="card-img">

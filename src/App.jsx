@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Header } from "./components/header";
 import { products } from "./products";
 import { ShowProducts } from "./components/ShowProducts";
 import { ShowBag } from "./components/showBag";
+import { ProductContext } from "./store/productContext";
 
 export function App() {
   const [flipkart, setFlipkart] = useState({
@@ -57,26 +58,73 @@ export function App() {
     });
   };
 
-  if (flipkart.shoWishlist)
-    content = (
-      <ShowBag
-        wishlist={flipkart.wishlist}
-        hideBagItems={hideBagItems}
-        removefromCart={removeBagItem}
-      />
-    );
-  else
-    content = (
-      <ShowProducts
-        productList={flipkart.productList}
-        addToCart={collectItems}
-      />
-    );
+  const increaseQnty = (product_id) => {
+    setFlipkart((prevState) => {
+      return {
+        ...prevState,
+        wishlist: prevState.wishlist.map((item) => {
+          if (item.id === product_id) {
+            if (item.quantity < item.stock) {
+              return {
+                ...item,
+                quantity: item.quantity + 1,
+              };
+            } else {
+              alert(
+                "We are out of Stock for " +
+                  `${item.name}`.toUpperCase() +
+                  " item"
+              );
+              return item; // updated item, otherwise map returns undefined
+            }
+          } else {
+            return item;
+          }
+        }),
+      };
+    });
+  };
+
+  const decreaseQnty = (product_id) => {
+    setFlipkart((prevState) => {
+      const updatedWishlist = prevState.wishlist
+        .map((item) => {
+          if (item.id === product_id) {
+            if (item.quantity === 1) {
+              return null; // Mark for removal of the particular cart item
+            } else {
+              return { ...item, quantity: item.quantity - 1 };
+            }
+          }
+          return item;
+        })
+        .filter((item) => item !== null); // Remove marked cart items
+      return {
+        ...prevState,
+        wishlist: updatedWishlist,
+      };
+    });
+  };
+
+  if (flipkart.shoWishlist) content = <ShowBag />;
+  else content = <ShowProducts />;
 
   return (
-    <>
-      <Header wishlist={flipkart.wishlist} showBagItems={showBagItems}/>
+    <ProductContext
+      value={{
+        productList: products,
+        wishlist: flipkart.wishlist,
+        addToCart: collectItems,
+        removefromCart: removeBagItem,
+        showBagItems: showBagItems,
+        hideBagItems: hideBagItems,
+        increaseQnty: increaseQnty,
+        decreaseQnty: decreaseQnty,
+      }}
+      >
+      <Header></Header>
       {content}
-    </>
+
+    </ProductContext>
   );
 }
