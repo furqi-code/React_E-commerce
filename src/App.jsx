@@ -48,13 +48,21 @@ export function App() {
     });
   };
 
-  
+  const removeBagItem = (product_id) => {
+    setFlipkart((prevState) => {
+      return {
+        ...prevState,
+        wishlist: prevState.wishlist.filter((item) => item.id != product_id),
+      };
+    });
+  };
 
   if (flipkart.shoWishlist)
     content = (
       <ShowBag
         wishlist={flipkart.wishlist}
         hideBagItems={hideBagItems}
+        removefromCart={removeBagItem}
       />
     );
   else
@@ -67,7 +75,7 @@ export function App() {
 
   return (
     <>
-      <Header wishlist={flipkart.wishlist} showBagItems={showBagItems} />
+      <Header wishlist={flipkart.wishlist} showBagItems={showBagItems}/>
       {content}
     </>
   );

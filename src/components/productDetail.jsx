@@ -3,7 +3,7 @@ import * as React from "react";
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
 
-export function CartItem({ ...product }) {
+export function CartItem({ removefromCart, ...product }) {
   let bill = product.MRP - (product.discount / 100) * product.MRP;
   console.log(`Stock of ${product.name}: `, product.stock);
   // console.log(`Quantity of ${product.name}: `, quantity);
@@ -41,7 +41,7 @@ export function CartItem({ ...product }) {
               ${bill.toFixed(3)}
             </span>
           </p>
-          <button className="myBtn">
+          <button className="myBtn" onClick={() => removefromCart(product.id)}>
             <img
               src="https://png.pngtree.com/png-clipart/20210310/original/pngtree-silver-trash-bin-clipart-png-image_5947991.jpg"
               alt="Trash"

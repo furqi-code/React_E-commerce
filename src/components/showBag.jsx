@@ -1,6 +1,6 @@
 import { CartItem } from "./productDetail";
 
-export function ShowBag({ wishlist, hideBagItems }) {
+export function ShowBag({ wishlist, hideBagItems, removefromCart }) {
   if (wishlist.length === 0) {
     return (
       <div
@@ -58,7 +58,7 @@ export function ShowBag({ wishlist, hideBagItems }) {
       </div>
 
       {wishlist.map((product) => {
-        return <CartItem {...product} ></CartItem>;
+        return <CartItem {...product}  removefromCart={removefromCart} ></CartItem>;
       })}
     </div>
   );
