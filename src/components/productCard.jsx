@@ -3,18 +3,15 @@ import { ProductContext } from "../store/productContext";
 
 export function Card({ id, name, description, MRP, img }) {
   const { addToCart } = useContext(ProductContext);
-
   return (
     <div class="card">
       <div class="card-img">
         <div class="">
-            <img src={img} alt="" />
+          <img src={img} alt="" />
         </div>
       </div>
       <div class="card-title">{name}</div>
-      <div class="card-subtitle">
-        {description}
-      </div>
+      <div class="card-subtitle">{description}</div>
       <hr class="card-divider" />
       <div class="card-footer">
         <div class="card-price">

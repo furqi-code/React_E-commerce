@@ -2,8 +2,7 @@ import { CartItem } from "./cart-itemDetail";
 import { useContext } from "react";
 import { ProductContext } from "../store/productContext";
 
-export function ShowBag() {
-  const { wishlist, hideBagItems, removefromCart } = useContext(ProductContext);
+export function ShowBag({ wishlist, hideBagItems, removefromCart }) {
   if (wishlist.length === 0) {
     return (
       <>
@@ -57,13 +56,6 @@ export function ShowBag() {
       </>
     );
   }
-  let totalBill = 0, totalCartItem = 0;
-  wishlist.forEach((product) => {
-    totalCartItem += product.quantity;
-    let bill = product.quantity * (product.MRP - (product.discount / 100) * product.MRP);
-    totalBill += bill;
-  });
-
   return (
     <div className="mx-auto" style={{ width: "570px" }}>
       <div className="flex items-center">
@@ -82,9 +74,7 @@ export function ShowBag() {
       </div>
 
       {wishlist.map((product) => {
-        return (
-          <CartItem {...product} removefromCart={removefromCart}></CartItem>
-        );
+        return <CartItem {...product}  removefromCart={removefromCart} ></CartItem>;
       })}
 
       <div className="mt-8">
