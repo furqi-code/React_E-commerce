@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useReducer } from "react";
 import { Header } from "./components/header";
 import { products } from "./products";
 import { ShowProducts } from "./components/ShowProducts";
@@ -6,13 +6,86 @@ import { ShowBag } from "./components/showBag";
 import { ProductContext } from "./store/productContext";
 
 export function App() {
-  const [flipkart, setFlipkart] = useState({
+  const [flipkart, dispatch] = useReducer(reducer, {
     productList: products,
     wishlist: [],
     shoWishlist: false,
   });
   let content;
   console.log("wishlist Array \n", flipkart.wishlist);
+
+  function reducer(state, action) {
+    switch (action.type) {
+      case "collectItems":
+        return {
+          ...state,
+          wishlist: [...state.wishlist, action.selectedItem],
+        };
+
+      case "showBagItems":
+        return {
+          ...state,
+          shoWishlist: true,
+        };
+
+      case "hideBagItems":
+        return {
+          ...state,
+          shoWishlist: false,
+        };
+
+      case "removeBagItem":
+        return {
+          ...state,
+          wishlist: state.wishlist.filter(
+            (item) => item.id !== action.product_id
+          ),
+        };
+
+      case "increaseQnty":
+        return {
+          ...state,
+          wishlist: state.wishlist.map((item) => {
+            if (item.id === action.product_id) {
+              if (item.quantity < item.stock) {
+                return { ...item, quantity: item.quantity + 1 };
+              } else {
+                alert(
+                  "We are out of Stock for " +
+                    `${item.name}`.toUpperCase() +
+                    " item"
+                );
+                return item;
+              }
+            } else {
+              return item;
+            }
+          }),
+        };
+
+      case "decreaseQnty":
+        const updatedWishlist = state.wishlist
+          .map((item) => {
+            if (item.id === action.product_id) {
+              if (item.quantity === 1) {
+                return null;
+              } else {
+                return { ...item, quantity: item.quantity - 1 };
+              }
+            }
+            return item;
+          })
+          .filter((item) => item !== null);
+
+        return {
+          ...state,
+          wishlist: updatedWishlist,
+        };
+
+      default:
+        throw new Error("Unknown action: " + action.type);
+    }
+  }
 
   const collectItems = (id) => {
     let selectedItem = flipkart.productList.find(
@@ -22,87 +95,43 @@ export function App() {
       (items) => items.id === selectedItem.id
     );
     if (!alreadyinBag) {
-      setFlipkart((prevState) => {
-        return {
-          ...prevState,
-          wishlist: [...prevState.wishlist, selectedItem],
-        };
+      dispatch({
+        type: "collectItems",
+        selectedItem,
       });
     }
   };
 
   const showBagItems = () => {
-    setFlipkart((prevState) => {
-      return {
-        ...prevState,
-        shoWishlist: true,
-      };
+    dispatch({
+      type: "showBagItems",
     });
   };
 
   const hideBagItems = () => {
-    setFlipkart((prevState) => {
-      return {
-        ...prevState,
-        shoWishlist: false,
-      };
+    dispatch({
+      type: "hideBagItems",
     });
   };
 
   const removeBagItem = (product_id) => {
-    setFlipkart((prevState) => {
-      return {
-        ...prevState,
-        wishlist: prevState.wishlist.filter((item) => item.id != product_id),
-      };
+    dispatch({
+      type: "removeBagItem",
+      product_id,
     });
   };
 
   const increaseQnty = (product_id) => {
-    setFlipkart((prevState) => {
-      return {
-        ...prevState,
-        wishlist: prevState.wishlist.map((item) => {
-          if (item.id === product_id) {
-            if (item.quantity < item.stock) {
-              return {
-                ...item,
-                quantity: item.quantity + 1,
-              };
-            } else {
-              alert(
-                "We are out of Stock for " +
-                  `${item.name}`.toUpperCase() +
-                  " item"
-              );
-              return item; // updated item, otherwise map returns undefined
-            }
-          } else {
-            return item;
-          }
-        }),
-      };
+    dispatch({
+      type: "increaseQnty",
+      product_id,
     });
   };
 
   const decreaseQnty = (product_id) => {
-    setFlipkart((prevState) => {
-      const updatedWishlist = prevState.wishlist
-        .map((item) => {
-          if (item.id === product_id) {
-            if (item.quantity === 1) {
-              return null; // Mark for removal of the particular cart item
-            } else {
-              return { ...item, quantity: item.quantity - 1 };
-            }
-          }
-          return item;
-        })
-        .filter((item) => item !== null); // Remove marked cart items
-      return {
-        ...prevState,
-        wishlist: updatedWishlist,
-      };
+    dispatch({
+      type: "decreaseQnty",
+      product_id,
     });
   };
 
@@ -121,10 +150,9 @@ export function App() {
         increaseQnty: increaseQnty,
         decreaseQnty: decreaseQnty,
       }}
-      >
+    >
       <Header></Header>
       {content}
-
     </ProductContext>
   );
 }

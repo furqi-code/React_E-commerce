@@ -89,7 +89,7 @@ export function ShowBag() {
         );
       })}
 
-      <div className="mt-8">
+      <div className="mt-8 mb-8">
         <div className="flex justify-center p-4 bg-blue-200 rounded-t-md border-b-2 border-gray-300">
           <span className="text-lg font-semibold tracking-wide text-gray-700">
             PRICE DETAILS
