@@ -11,8 +11,8 @@ export function CartItem({ ...product }) {
   console.log(`Stock of ${product.name}: `, product.stock);
   return (
     <div className="flex justify-between gap-14 py-8">
-      <div style={{ backgroundColor: "silver", border: "2px solid black" }}>
-        <img src={product.img} alt={product.name} />
+      <div>
+        <img src={product.img} alt={product.name} className="w-236 object-contain" />
       </div>
       <div>
         <p className="text-lg">{product.description}</p>

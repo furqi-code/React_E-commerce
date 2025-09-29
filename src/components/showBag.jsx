@@ -57,12 +57,14 @@ export function ShowBag() {
       </>
     );
   }
-  let totalBill = 0, totalCartItem = 0;
+  let subTotalBill = 0, totalCartItem = 0, totalBill = 0 ;
   wishlist.forEach((product) => {
     totalCartItem += product.quantity;
     let bill = product.quantity * (product.MRP - (product.discount / 100) * product.MRP);
-    totalBill += bill;
+    subTotalBill += bill;
   });
+  const GST = (18/100) * subTotalBill;
+  totalBill = subTotalBill + GST ;
 
   return (
     <div className="mx-auto" style={{ width: "570px" }}>
@@ -94,15 +96,23 @@ export function ShowBag() {
           </span>
         </div>
         <div className="bg-white rounded-b-md shadow-md p-6 space-y-4">
-          <div className="flex justify-between items-center border-b pb-2">
+          <div className="flex justify-between items-center pt-2">
             <span className="font-medium text-gray-600">
               Total item quantity :
             </span>
             <span className="text-base font-semibold">{totalCartItem}</span>
           </div>
           <div className="flex justify-between items-center pt-2">
+            <span className="font-medium text-gray-600">SubTotal Bill :</span>
+            <span className="text-lg font-bold">${subTotalBill.toFixed(3)}</span>
+          </div>
+          <div className="flex justify-between items-center pt-2">
+            <span className="font-medium text-gray-600">GST (18%) :</span>
+            <span className="text-lg text-red-500 font-bold">${GST.toFixed(3)}</span>
+          </div>
+          <div className="flex justify-between items-center pt-2">
             <span className="font-medium text-gray-600">Total Bill :</span>
-            <span className="text-lg font-bold">${totalBill.toFixed(3)}</span>
+            <span className="text-2xl text-green-500 font-bold">${totalBill.toFixed(3)}</span>
           </div>
         </div>
       </div>
